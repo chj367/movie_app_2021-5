@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# 조항재 201840229
+***
+## [MENU]
+- [0908-2주차](#0908) : 리액트로 클론 코딩 시작하기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+***
+## [09월 08일] <a id="0908"></a>
+### 오늘 배운 내용 요약
+> 1. create-react-app 개념
+> 2. 개발환경확인 및 리액트 앱 폴더 생성
+> 3. 리액트 앱 시작
+> 4. 리액트 동작 과정 확인
+> 5. 컴포넌트
 
-## Available Scripts
+### [2장. 리액트로 클론 코딩 시작하기]
+#### <1. create-react-app 개념>
+- 웹팩(Webpack)은 자바스크립트 앱을 위한 정적 모듈들을 하나로 묶어주는 번들러.
+- 바벨(Bavel)은 최신 자바스크립트 문법을 사용할 수 있게 해주는 트랜스파일러.<br><br>
 
-In the project directory, you can run:
+- React로 개발하는 경우 웹팩이나 바벨은 신경 X <br><br>
 
-### `npm start`
+- create-react-app은 react를 위한 보일러 플레이트. 이 한 줄을 입력해서 리액트 개발을 바로 시작 가능.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### <2. 개발환경확인 및 리액트앱 폴더 생성>
+- VS코드에서 터미널 키는 방법: Ctrl+Shift+백틱<br><br>
+- 개발환경확인: 버젼이 나오면 설치완료 상태.
+```jsx
+git --version   // git 
+node -v     // node.js
+npm -v     // npm
+npx -v     // npx
+```
+- 리액트 앱 폴더 만들기
+```jsx
+npx create-react-app 폴더 이름
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### <3. 리액트 앱 시작>
+- 터미널에서 npm start 입력하면 리액트 앱 시작함.
+- 종료하는 방법은 터미널에서 Ctrl+C 누르면 종료함. <br><br>
 
-### `npm test`
+- React 공식 홈페이지: https://ko.reactjs.org/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### <4. 리액트 동작 과정 확인>
+1. index.js에서 App 컴포넌트를 콜하면, App.js에 작성한 내용이 return이 됨.
+2. index.js에 있는 document.getElementById('root')를 통해  index.html에서 id값이 root인 곳을 찾아서 App.js에서 return한 값을 넣어줌
+3. 그래서 웹 브라우저에서 App.js에 작성한 내용을 볼 수 있음!
 
-### `npm run build`
+### [3장. 리액트 기초개념 알아보기]
+#### <1. 컴포넌트>
+- 컴포넌트(component)는 function으로 정의 내린 곳을 가리킴.
+- 컴포넌트는 대문자로 시작함: ex) function App() { ... }
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```jsx
+import React from 'react'; // 리액트 16버젼까지는 필수작성인데, 17버젼부터는 생략가능
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+function App() {   // App이라는 컴포넌트.
+  return (
+    <div>Hello React!!!!</div>
+  );
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+export default App;  // 이 코드가 없으면 다른곳에서 사용할 수 없음.
 
-### `npm run eject`
+// 이번 17버젼부터는 모든곳에 세미콜론(;) 생략 가능!
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+// 다른곳에서 사용할려면 사용할려는 곳에서 import App from './App'; 이렇게 쓰면됨
+// 상대경로로 작성함. 같은 경로에 있는 App이라는 파일에서 App() 내용을 갖고온다는 뜻.
+```
