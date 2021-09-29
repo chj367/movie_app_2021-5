@@ -4,9 +4,9 @@
 ### [Main branch로 변경]
 - 예전에는 Master branch라고 불렸음.
 - 최근에는 인종차별적 요소때문에 Main branch로 변경됨.
-- 해당 내용은 git 2.28버젼부터 적용.
-<br>
+- 해당 내용은 git 2.28버젼부터 적용.<br><br>
 - git flow: branch 관련 흐름
+
 ```jsx
 git config --global init.defaultBranch main  // 이거 입력하면 Main Branch로 생성!
 
@@ -36,8 +36,8 @@ git branch -m master main  // 이거 입력하면 기존꺼를 main 브랜치로
 - 리액트는 ../public 생략가능
 
 #### <4. prop-types 사용하기>
-- prop-types는 컴포넌트가 전달받은 props가 원하는 값인지 확인해주는 역할을 함.
-<br>
+- prop-types는 컴포넌트가 전달받은 props가 원하는 값인지 확인해주는 역할을 함.<br><br>
+
 - prop-types 설치
 ```jsx
 npm install prop-types 
@@ -49,19 +49,18 @@ npm install prop-types
 import PropTypes from 'prop-types' 
    // prop-types 모듈을 PropTypes라는 이름으로 import하겠다라는 뜻.
 ```
-- prop-types에서 isRequired는 생략해도 상관없음.
-<br>
+- prop-types에서 isRequired는 생략해도 상관없음.<br><br>
 
 ### [5장. State와 클래스형 컴포넌트]
 #### <1. State로 숫자 증감 기능 만들어보기>
 - props는 정적인 데이터만 다를 수 있다면,
-- state는 동적인 데이터를 다루기 위해 사용된다. class형 컴포넌트만 사용가능.
-<br>
+- state는 동적인 데이터를 다루기 위해 사용된다. class형 컴포넌트만 사용가능.<br><br>
+
 - class형 컴포넌트를 사용할때는 React.Component를 상속받아서 사용함.
-- React.Component에 여러가지 기능이 이미 구현되어 있기 때문.
-<br>
+- React.Component에 여러가지 기능이 이미 구현되어 있기 때문.<br><br>
 - 함수형 컴포넌트는 return을 사용해서 값을 리턴했다면,
 - 클래스형 컴포넌트에서는 바로 리턴을 못하기 때문에, render()함수 안에 return을 넣어서 리턴함.
+
 ```jsx
 import React from 'react'
 
@@ -215,23 +214,24 @@ class App extends Component {
 // 결과) add 버튼 누를때마다 1씩 증가, minus 버튼 누를때마다 1씩 감소함.
 ```
 <br>
+
 #### <2.클래스형 컴포넌트의 일생-LifeCycle>
 - 생명 주기 함수
   - 컴포넌트의 생성: constructor, render
   - 생성 직후: componentDitMount
   - update의 처리: shouldComponentUpdate, render
   - 처리 직후: componentDitUpdate
-  - 컴포넌트 제거: componentWillUnmount
-<br>
-- 참고(리액트 공식 사이트): https://ko.reactjs.org/docs/react-component.html      
-<br>
+  - 컴포넌트 제거: componentWillUnmount<br><br>
+
+- 참고(리액트 공식 사이트): https://ko.reactjs.org/docs/react-component.html<br><br>
+
 - 생성자 관련
   - constructor함수는 Component를 생성할 때 state값을 초기화하거나 메서드를 바인딩할때 사용.
   - React.Component를 상속해서 만들어진 컴포넌트의 생성자를 구현할 때는 super(props) 선언을 권고하는 이유는 this.props 사용시 생성자 내에서 정의되지 않아 버그 발생 가능성이 있기 때문.
   - 자바스크립트에서 super는 부모클래스 생성자의 참조한다는 의미.
   - 자바스크립트는 언어적 제약사항으로 생성자에서 super를 호출하기 전에 this를 사용할 수 없다. 그래서 반드시 super를 먼저 호출해야 this를 사용할 수 있음.
-  - 생성자 내에서는 외부API를 직접 호출할 수 없다. 필요하다면 componentDidMount()를 사용한다.
-<br>
+  - 생성자 내에서는 외부API를 직접 호출할 수 없다. 필요하다면 componentDidMount()를 사용한다.<br><br>
+
 - constructor와 render 함수 추가하기
 ```jsx
 import {Component} from 'react'
