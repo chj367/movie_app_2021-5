@@ -1,9 +1,298 @@
 # 조항재 201840229
 ***
+## [참고 내용]
+### [Main branch로 변경]
+- 예전에는 Master branch라고 불렸음.
+- 최근에는 인종차별적 요소때문에 Main branch로 변경됨.
+- 해당 내용은 git 2.28버젼부터 적용.
+<br>
+- git flow: branch 관련 흐름
+```jsx
+git config --global init.defaultBranch main  // 이거 입력하면 Main Branch로 생성!
+
+git branch -m master main  // 이거 입력하면 기존꺼를 main 브랜치로 바뀜
+```
+### [React Project 클론 과정]
+1. github에서 Code 눌러서 Clone-https에 있는 url 복사하기
+2. 클론해올(=붙여넣을) 폴더를 VS코드로 열고 터미널에서 "git clone 복사했던 URL" 입력하기
+3. 일단 github에 올렸던 코드 그대로 복제 성공!
+4. 예전에 모듈 설치했던거 설치하면 수업 준비 완료! (package.json에 모듈 설치 뭐했는지 확인가능)
+***
 ## [MENU] <a id="menu"></a>
+- [0929-5주차](#0929) : prop-types + State와 클래스형 컴포넌트
+- 0922-4주차 : 휴강(추석연휴)이라서 내용 X
 - [0915-3주차](#0915) : 리액트 기초개념 + 컴포넌트 만들기
 - [0908-2주차](#0908) : 리액트로 클론 코딩 시작하기
+***
+## [09월 29일] <a id="0929"></a>
+### 오늘 배운 내용 요약
+> 1. prop-types
+> 2. State로 숫자 증감 기능 만들기
+> 3. 클래스형 컴포넌트의 일생-Life Cycle
+### [4장. 컴포넌트 만들기]
+#### <저번 수업(3주차-9.15) 이어서>
+- 이미지를 절대경로가 아닌 상대경로로 바꿔서 사용 가능
+- 상대경로 넣을때 원래는 ../public/images/aaa.jpg처럼 해야하는데, 
+- 리액트는 ../public 생략가능
 
+#### <4. prop-types 사용하기>
+- prop-types는 컴포넌트가 전달받은 props가 원하는 값인지 확인해주는 역할을 함.
+<br>
+- prop-types 설치
+```jsx
+npm install prop-types 
+
+// 설치하고 나서 package.json에서 "prop-types" 버젼이 있으면 정상 설치 완료!
+```
+- prop-types 사용하기
+```jsx
+import PropTypes from 'prop-types' 
+   // prop-types 모듈을 PropTypes라는 이름으로 import하겠다라는 뜻.
+```
+- prop-types에서 isRequired는 생략해도 상관없음.
+<br>
+
+### [5장. State와 클래스형 컴포넌트]
+#### <1. State로 숫자 증감 기능 만들어보기>
+- props는 정적인 데이터만 다를 수 있다면,
+- state는 동적인 데이터를 다루기 위해 사용된다. class형 컴포넌트만 사용가능.
+<br>
+- class형 컴포넌트를 사용할때는 React.Component를 상속받아서 사용함.
+- React.Component에 여러가지 기능이 이미 구현되어 있기 때문.
+<br>
+- 함수형 컴포넌트는 return을 사용해서 값을 리턴했다면,
+- 클래스형 컴포넌트에서는 바로 리턴을 못하기 때문에, render()함수 안에 return을 넣어서 리턴함.
+```jsx
+import React from 'react'
+
+class App extends React.Component {    			 
+  render() {        // render함수에다가 return값 집어넣어서 사용.
+    return ( 
+      <h1>Hello</h1>
+    )
+  }
+}
+
+export default App
+
+// React.Component를 사용해야해서 import React 추가했음!
+// 저번 4장할때는 이런거 사용안해서 생략했었음.
+
+// 만약 import부분에 {Component}를 추가하면: import React, {Component} from 'react'
+// 밑에 있는 React.Component부분에서 Component만 써도 됨: class App extends Component { }
+// 위의 import부분에 이미 선언했기 때문에.
+
+// 그래서 아예 처음부터 import {Component} from 'react' 이렇게 간단하게 써도 상관없음.
+// import에서 React는 원래 생략 가능하기 때문에.
+```
+<br>
+
+- State 추가하기
+```jsx
+class App extends Component {
+  state = {      // state는 동적인 데이터를 다룸. state는 객체형태의 데이터.
+    count: 0     
+  }
+
+  render() {  
+    return {
+      <h1>The number is: {this.state.count}</h1>  // 위의 state의 count의 값을 가져옴.
+    }  
+  }
+}
+
+// 결과) The number is 0 이라고 화면에 뜸!
+```
+<br>
+
+- 버튼 추가하기
+```jsx
+render() {
+  return ( 
+     <div>
+        <h1>The number is: {this.state.count}</h1>
+        <button>Add</button>
+        <button>Minus</button>
+     </div>
+  )
+}
+
+// return에 태그가 여러개 있으면 오류나기 때문에 div태그로 묶었음!
+
+// 결과) Add와 Minus라는 버튼이 생겼음. 동작은 안함.
+```
+<br>
+
+- 버튼 동작하게 만들기
+```jsx
+class App extends Component {
+  state = {
+      count: 0
+  }
+
+  add = () => {            // 함수 정의. 이것만 있으면 사용못함. 밑에서 사용하게 만들기.
+      console.log('add')
+  }
+
+  minus = () => {          // 함수 정의. 이것만 있으면 사용못함. 밑에서 사용하게 만들기.
+      console.log('minus')
+  }
+
+  render() {
+    return ( 
+      <div>
+         <h1>The number is: {this.state.count}</h1>
+         <button onClick={this.add}>Add</button>       
+            {/* 함수 사용. 이 버튼을 누르면 add함수가 호출됨. */}
+         <button onClick={this.minus}>Minus</button>   
+            {/* 함수 사용. 이 버튼을 누르면 minus함수가 호출됨. */}
+      </div>
+    )
+  }
+}
+
+// 결과) 버튼 누를때마다 해당 값(add 아니면 minus)가 콘솔창에 출력됨
+
+```
+<br>
+
+- 버튼을 누르면 상태가 바뀌게 만들기
+```jsx
+class App extends Component {
+  state = {
+      count: 0
+  }
+
+  add = () => {               
+      this.setState({count: 1})  // count에다가 1을 넣겠다. 그냥 1을 넣는 것임.
+  }
+
+  minus = () => {              
+      this.setState({count: -1})  // count에다가 -1을 넣겠다. 그냥 -1을 넣는 것임.
+  }
+
+  render() {
+    return ( 
+      <div>
+         <h1>The number is: {this.state.count}</h1>
+         <button onClick={this.add}>Add</button>      
+         <button onClick={this.minus}>Minus</button>   
+      </div>
+    )
+  }
+}
+
+// 결과) Add 버튼 누르면 1이 되고, Minus 버튼 누르면 -1이 됨.
+```
+<br>
+
+- 버튼을 누르면 증가 or 감소하게 만들기
+```jsx
+class App extends Component {
+  state = {
+      count: 0
+  }
+
+  add = () => {               
+      this.setState({count: this.state.count + 1})  // add함수 호출하면 count에 1을 증가
+  }
+
+  minus = () => {              
+      this.setState({count: this.state.count - 1})  // minus함수 호출하면 count에 1을 감소
+  }
+
+  render() {
+    return ( 
+      <div>
+         <h1>The number is: {this.state.count}</h1>
+         <button onClick={this.add}>Add</button>      
+         <button onClick={this.minus}>Minus</button>   
+      </div>
+    )
+  }
+}
+
+// 결과) add 버튼 누를때마다 1씩 증가, minus 버튼 누를때마다 1씩 감소함.
+```
+<br>
+#### <2.클래스형 컴포넌트의 일생-LifeCycle>
+- 생명 주기 함수
+  - 컴포넌트의 생성: constructor, render
+  - 생성 직후: componentDitMount
+  - update의 처리: shouldComponentUpdate, render
+  - 처리 직후: componentDitUpdate
+  - 컴포넌트 제거: componentWillUnmount
+<br>
+- 참고(리액트 공식 사이트): https://ko.reactjs.org/docs/react-component.html      
+<br>
+- 생성자 관련
+  - constructor함수는 Component를 생성할 때 state값을 초기화하거나 메서드를 바인딩할때 사용.
+  - React.Component를 상속해서 만들어진 컴포넌트의 생성자를 구현할 때는 super(props) 선언을 권고하는 이유는 this.props 사용시 생성자 내에서 정의되지 않아 버그 발생 가능성이 있기 때문.
+  - 자바스크립트에서 super는 부모클래스 생성자의 참조한다는 의미.
+  - 자바스크립트는 언어적 제약사항으로 생성자에서 super를 호출하기 전에 this를 사용할 수 없다. 그래서 반드시 super를 먼저 호출해야 this를 사용할 수 있음.
+  - 생성자 내에서는 외부API를 직접 호출할 수 없다. 필요하다면 componentDidMount()를 사용한다.
+<br>
+- constructor와 render 함수 추가하기
+```jsx
+import {Component} from 'react'
+
+class App extends Component {
+   constructor(props){
+      super(props)
+      console.log("Constructor");
+    }
+
+   state = {
+      count: 0
+    }
+
+   add = () => { this.setState({count: this.state.count + 1}) }
+
+   minus = () => { this.setState({count: this.state.count - 1}) }
+
+   render() {
+     console.log("render");
+     return ( 
+      <div>
+        <h1>The number is: {this.state.count}</h1>
+        <button onClick={this.add}>Add</button>      
+        <button onClick={this.minus}>Minus</button>   
+      </div>
+    )
+  }
+}
+
+export default App
+
+// 콘솔창에 보면 Constructor가 먼저 나오고, render가 나옴.
+// 버튼 누를때마다 render가 계속 콘솔창에 찍히는거 확인가능!
+// Constructor는 처음 한번 나오면 다시는 안 나옴.
+```
+<br>
+
+- componentDidMount 함수 추가
+```jsx
+componentDidMount(){
+  console.log("componentDidMount");
+}
+ 
+// 콘솔창에 보면 Constructor가 먼저 나오고, render가 나오고... 
+// 마지막으로 componentDidMount가 나오는거 확인 가능!
+```
+<br>
+
+- componentDidUpdate 함수 추가
+```jsx
+componentDidUpdate(){
+   console.log("componentDidUpdate");
+}
+
+// 일단 Constructor - render - componentDidMount 순으로 나오고...
+// 버튼을 누를때마다 render - componentDidUpdate 순으로 계속 나오는거 확인 가능!
+```
+<br>
+
+### [5주차 끝-MENU로 돌아가기](#menu)
 ***
 ## [09월 15일] <a id="0915"></a>
 ### 오늘 배운 내용 요약
