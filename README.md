@@ -317,6 +317,7 @@ componentDidUpdate(){
 // props로 전달할때의 예시
 <Food fav="kimchi" something={true} papapa={['hello',1,2,3,4,true]} />
 ```
+<br>
 
 - 컴포넌트 여러개 사용하기
 ```jsx
@@ -335,6 +336,7 @@ function Movie() {    // 서브 컴포넌트
 
 export default App    // 이게 있어야 다른곳에서도 사용 가능
 ```
+<br>
 
 - props로 컴포넌트에 데이터 전달하기
 ```jsx
@@ -354,6 +356,7 @@ function Food(foo) {     // 위에서 전달된 값을 받아옴. 받는 변수�
 
 export default App
 ```
+<br>
 
 - props로 컴포넌트에 데이터 전달하기2
 ```jsx
@@ -372,6 +375,7 @@ function Food(foo) {       // 전달된 값을 foo로 받아왔음.
 
 export default App
 ```
+<br>
 
 - 구조 분해 할당으로 props 사용하기: 데이터의 개수가 많아지면 구조 분해 할당을 사용하는 것이 편리.
 ```jsx
@@ -391,6 +395,7 @@ function Food(foo) {
 
 export default App
 ```
+<br>
 
 - 여러 개의 컴포넌트에 props 사용하기(구조 분해 할당 사용)
 ```jsx
@@ -441,6 +446,7 @@ friends.map(foo => {
 //         c        >> console.log(foo)가 출력한 값 3번째. 반환값X. 특정작업하는 함수 적용.
 //         [0,0,0]  >> freinds.map()이 최종으로 반환한 값 0. 배열에 리턴값 저장된채로 반환.
 ```
+<br>
 
 - map()함수로 이름에 기호 추가한 배열 만들기
 ```jsx
@@ -451,6 +457,7 @@ friends.map (function(friends) {    // 무명함수를 통해서 배열의 원�
 
 // 결과값은 a★ b★ c★ 세로로 한줄씩 나옴.  (friends 배열 값에다가 각각 ★이 추가됨!)
 ```
+<br>
 
 - map()함수로 Food 컴포넌트 여러개 만들기+이미지도 출력하기
 ```jsx
@@ -489,6 +496,7 @@ function Food({name, picture}) {   // 위에서 전달한 값들을 받아왔음
 
 export default App
 ```
+<br>
 
 - key props 추가하기
   - 리스트의 각 원소는 유일한 key prop을 가져야 한다.
@@ -569,6 +577,8 @@ node -v     // node.js
 npm -v     // npm
 npx -v     // npx
 ```
+<br>
+
 - 리액트 앱 폴더 만들기
 ```jsx
 npx create-react-app 폴더 이름
@@ -584,6 +594,7 @@ npx create-react-app 폴더 이름
 1. index.js에서 App 컴포넌트를 콜하면, App.js에 작성한 내용이 return이 됨.
 2. index.js에 있는 document.getElementById('root')를 통해  index.html에서 id값이 root인 곳을 찾아서 App.js에서 return한 값을 넣어줌
 3. 그래서 웹 브라우저에서 App.js에 작성한 내용을 볼 수 있음!
+<br>
 
 ### [3장. 리액트 기초개념 알아보기]
 #### <1. 컴포넌트>
