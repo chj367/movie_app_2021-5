@@ -19,10 +19,75 @@ git branch -m master main  // 이거 입력하면 기존꺼를 main 브랜치로
 4. 예전에 모듈 설치했던거 설치하면 수업 준비 완료! (package.json에 모듈 설치 뭐했는지 확인가능)
 ***
 ## [MENU] <a id="menu"></a>
+- [1006-6주차](#1006) : 영화 앱 만들기 
 - [0929-5주차](#0929) : prop-types + State와 클래스형 컴포넌트
 - 0922-4주차 : 휴강(추석연휴)이라서 내용 X
 - [0915-3주차](#0915) : 리액트 기초개념 + 컴포넌트 만들기
 - [0908-2주차](#0908) : 리액트로 클론 코딩 시작하기
+***
+## [10월 06일] <a id="1006"></a>
+### 오늘 배운 내용 요약
+> 1. 영화 앱 만들기
+
+### [5장. State와 클래스형 컴포넌트]
+#### <3. 영화 앱 만들기 워밍업>
+- 영화 데이터 로딩 상태 표시 및 출력
+```jsx
+// 기본형태 + isLoading 추가(구조분해할당) + 삼항연산자
+import React from "react"
+
+class App extends React.Component {
+  state = {
+    isLoading: true  // 여기가 true이니 밑에 Loading이 출력됨!
+		     // false하면 밑에 영화 데이터 출력이 뜸!
+  }
+    
+  render() {
+    const { isLoading } = this.state
+      return (
+        <div>
+          { isLoading ? 'Loading...' : '영화 데이터 출력' }
+        </div>
+      )
+  }
+}
+
+export default App
+```
+<br>
+
+- 로딩 현상 추가
+```jsx
+componentDidMount(){
+  setTimeout( () => {
+    this.setState({ isLoading: false })
+    }, 6000)    // setTimeout(함수, 초)
+               // 6000ms(=6초)가 지나면 true에서 false로 바뀜
+ }
+```
+<br>
+
+- 영화 데이터 저장할 공간 추가
+```jsx
+  movies: []
+```
+<br>
+
+### [6장. 영화 앱 만들기] 
+- axios 설치
+```jsx
+npm install axios
+```
+<br>
+
+- YTS 영화 데이터 API 사이트: https://yts.mx/api 
+- 노마드 코더 영화 API 관련: https://github.com/serranoarevalo/yts-proxy
+
+
+
+
+### [6주차 끝-MENU로 돌아가기](#menu)
+
 ***
 ## [09월 29일] <a id="0929"></a>
 ### 오늘 배운 내용 요약
