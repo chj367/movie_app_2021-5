@@ -82,9 +82,60 @@ npm install axios
 
 - YTS 영화 데이터 API 사이트: https://yts.mx/api 
 - 노마드 코더 영화 API 관련: https://github.com/serranoarevalo/yts-proxy
+<br>
 
+- 노마드 코더 영화 API 호출하기
+```jsx
+import axios from "axios"
 
+componentDidMount(){
+  axios.get("https://yts-proxy.now.sh/list_movies.json")
+}
 
+// 잘 로딩되었나 확인은 F12-Network 들어가서 새로고침 후 확인했음!
+```
+<br>
+
+- getMovies() 함수 추가
+```jsx
+getMovies = () => {
+  const movies = axios.get("https://yts-proxy.now.sh/list_movies.json")
+}
+    
+componentDidMount(){
+  this.getMovies()
+}
+
+// 데이터를 받아왔는데 저장을 못한 상태
+```
+<br>
+
+- async, await 키워드 추가
+```jsx
+getMovies = async () => {
+  const movies = await axios.get("https://yts-proxy.now.sh/list_movies.json")
+  console.log(movies); // 잘되었나 확인하기 위해 console.log 추가
+}
+
+// 시간이 필요하다는 것을 알리기 위해.
+```
+<br>
+
+- 일부 내용만 볼수있게 하기(구조분해할당)
+```jsx
+getMovies = async () => {
+  const {
+    data: {
+      data: {movies}
+    }
+  } = await axios.get("https://yts-proxy.now.sh/list_movies.json")
+  // const movies 
+  console.log(movies);
+}
+
+// 이렇게 하면 굳이 console.log(movies.data.data.movies) 안해도 됨!
+```
+<br>
 
 ### [6주차 끝-MENU로 돌아가기](#menu)
 
