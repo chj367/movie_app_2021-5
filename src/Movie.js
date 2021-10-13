@@ -7,7 +7,11 @@ function Movie(){
 }
 
 Movie.propTypes = {
-
+    id: PropTypes.number.isRequired,
+    year: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    summary: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired
 }
 
 export default Movie
