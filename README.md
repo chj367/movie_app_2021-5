@@ -161,7 +161,7 @@ render() {
 function Movie({title, year, summary, poster, genres}) { ... }
 
 Movie.propTypes = {
-	genres: PropTypes.arrayOf(PropTypes.string).isRequired
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired
 }    // 여러 내용 들어가서 타입을 배열로 설정!
 
 
