@@ -19,11 +19,144 @@ git branch -m master main  // 이거 입력하면 기존꺼를 main 브랜치로
 4. 예전에 모듈 설치했던거 설치하면 수업 준비 완료! (package.json에 모듈 설치 뭐했는지 확인가능)
 ***
 ## [MENU] <a id="menu"></a>
+- [1013-7주차](#1013) : 영화 앱 만들기 2
 - [1006-6주차](#1006) : 영화 앱 만들기 
 - [0929-5주차](#0929) : prop-types + State와 클래스형 컴포넌트
 - 0922-4주차 : 휴강(추석연휴)이라서 내용 X
 - [0915-3주차](#0915) : 리액트 기초개념 + 컴포넌트 만들기
 - [0908-2주차](#0908) : 리액트로 클론 코딩 시작하기
+***
+## [10월 13일] <a id="1013"></a>
+### 오늘 배운 내용 요약
+> 1. 영화 앱 만들기 2
+
+### [6장. 영화 앱 만들기]
+- movie state에 영화 데이터 저장하기
+```jsx
+getMovies = async () => {
+  const {
+    data: {
+       data: {movies}
+     }
+  } = await axios.get("https://yts-proxy.now.sh/list_movies.json")
+  this.setState({movies: movies})
+}
+
+// 이렇게해서 movies 배열 안으로 값이 들어감.
+// 앞의 movies는 영화 데이터를 저장할 movies 배열을 가리킴
+// 뒤의 movies는 data.data.movies를 가리킴
+
+// 이렇게 키와 키 값의 이름이 같으면 밑에처럼 생략 가능!
+// this.setState({movies})
+```  
+
+- isLoading state를 true에서 false로 업데이트 하기
+```jsx
+getMovies = async () => {
+ const {
+    data: {
+       data: {movies}
+     }
+  } = await axios.get("https://yts-proxy.now.sh/list_movies.json")
+  this.setState({movies, isLoading: false})
+}
+
+// 로딩이 된 다음에 false인 "영화 데이터 출력"으로 바뀜
+```  
+
+- Movie 컴포넌트 만들기 및 propTypes 작성하기
+```jsx
+import PropTypes from 'prop-types'
+
+function Movie(){
+    return(
+     <h1>Hello</h1>   
+    )
+}
+
+Movie.propTypes = {
+  id: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  summary: PropTypes.string.isRequired,
+  poster: PropTypes.string.isRequired
+}
+
+export default Movie
+```  
+
+- axios.get() 수정하기
+```jsx
+getMovies = async () => {
+  const {
+      data: {
+         data: {movies}
+      }
+   } = await axios.get("https://yts-proxy.now.sh/list_movies.json?sort_by=rating")
+   console.log(movies);
+   this.setState({movies, isLoading: false})
+}
+
+// 이렇게하면 rating 높->낮은거 순으로 정렬되있는거 확인가능!
+```  
+
+- Movie 컴포넌트에 props 추가하기
+```jsx
+function Movie({id, title, year, summary, poster}){
+    return(
+     <h1>{title}</h1>  
+    )
+}
+```  
+
+- isLoading의 false값 수정 및 Movie 컴포넌트 import하기
+```jsx
+render() {
+  const { isLoading, movies } = this.state
+  return (
+    <div>
+      { isLoading 
+        ? 'Loading...' 
+        : movies.map((movie)=> {
+            console.log(movie);
+            return <Movie />
+          }) 
+      }
+     </div>
+   )
+}
+```
+
+- return에 Movie.js의 값 추가 및 key props 추가하기
+```jsx
+render() {
+  const { isLoading, movies } = this.state
+  return (
+    <div>
+      { isLoading 
+        ? 'Loading...' 
+        : movies.map((movie)=> {
+            console.log(movie);
+            return (
+              <Movie 
+								key={movie.id}
+                id={movie.id}
+                year={movie.year}
+                title={movie.title}
+                summary={movie.summary}
+                poster={movie.poster}
+              />
+            )})}
+    </div>
+  )
+}
+
+// 이제 화면에 Movie.js에서 가져온 값들 확인 가능
+```
+
+- ddd
+
+
 ***
 ## [10월 06일] <a id="1006"></a>
 ### 오늘 배운 내용 요약
@@ -53,8 +186,7 @@ class App extends React.Component {
 }
 
 export default App
-```
-<br>
+```  
 
 - 로딩 현상 추가
 ```jsx
@@ -64,25 +196,21 @@ componentDidMount(){
     }, 6000)    // setTimeout(함수, 초)
                // 6000ms(=6초)가 지나면 true에서 false로 바뀜
  }
-```
-<br>
+```  
 
 - 영화 데이터 저장할 공간 추가
 ```jsx
   movies: []
-```
-<br>
+```  
 
 ### [6장. 영화 앱 만들기] 
 - axios 설치
 ```jsx
 npm install axios
-```
-<br>
+```  
 
 - YTS 영화 데이터 API 사이트: https://yts.mx/api 
-- 노마드 코더 영화 API 관련: https://github.com/serranoarevalo/yts-proxy
-<br>
+- 노마드 코더 영화 API 관련: https://github.com/serranoarevalo/yts-proxy  
 
 - 노마드 코더 영화 API 호출하기
 ```jsx
@@ -93,8 +221,7 @@ componentDidMount(){
 }
 
 // 잘 로딩되었나 확인은 F12-Network 들어가서 새로고침 후 확인했음!
-```
-<br>
+```  
 
 - getMovies() 함수 추가
 ```jsx
@@ -107,8 +234,7 @@ componentDidMount(){
 }
 
 // 데이터를 받아왔는데 저장을 못한 상태
-```
-<br>
+```  
 
 - async, await 키워드 추가
 ```jsx
@@ -118,8 +244,7 @@ getMovies = async () => {
 }
 
 // 시간이 필요하다는 것을 알리기 위해.
-```
-<br>
+```  
 
 - 일부 내용만 볼수있게 하기(구조분해할당)
 ```jsx
@@ -134,8 +259,7 @@ getMovies = async () => {
 }
 
 // 이렇게 하면 굳이 console.log(movies.data.data.movies) 안해도 됨!
-```
-<br>
+```  
 
 ### [6주차 끝-MENU로 돌아가기](#menu)
 
@@ -199,8 +323,7 @@ export default App
 
 // 그래서 아예 처음부터 import {Component} from 'react' 이렇게 간단하게 써도 상관없음.
 // import에서 React는 원래 생략 가능하기 때문에.
-```
-<br>
+```  
 
 - State 추가하기
 ```jsx
@@ -217,8 +340,7 @@ class App extends Component {
 }
 
 // 결과) The number is 0 이라고 화면에 뜸!
-```
-<br>
+```  
 
 - 버튼 추가하기
 ```jsx
@@ -235,8 +357,7 @@ render() {
 // return에 태그가 여러개 있으면 오류나기 때문에 div태그로 묶었음!
 
 // 결과) Add와 Minus라는 버튼이 생겼음. 동작은 안함.
-```
-<br>
+```  
 
 - 버튼 동작하게 만들기
 ```jsx
@@ -268,8 +389,7 @@ class App extends Component {
 
 // 결과) 버튼 누를때마다 해당 값(add 아니면 minus)가 콘솔창에 출력됨
 
-```
-<br>
+```  
 
 - 버튼을 누르면 상태가 바뀌게 만들기
 ```jsx
@@ -298,8 +418,7 @@ class App extends Component {
 }
 
 // 결과) Add 버튼 누르면 1이 되고, Minus 버튼 누르면 -1이 됨.
-```
-<br>
+```  
 
 - 버튼을 누르면 증가 or 감소하게 만들기
 ```jsx
@@ -328,8 +447,7 @@ class App extends Component {
 }
 
 // 결과) add 버튼 누를때마다 1씩 증가, minus 버튼 누를때마다 1씩 감소함.
-```
-<br>
+```  
 
 #### <2.클래스형 컴포넌트의 일생-LifeCycle>
 - 생명 주기 함수
@@ -346,7 +464,7 @@ class App extends Component {
   - React.Component를 상속해서 만들어진 컴포넌트의 생성자를 구현할 때는 super(props) 선언을 권고하는 이유는 this.props 사용시 생성자 내에서 정의되지 않아 버그 발생 가능성이 있기 때문.
   - 자바스크립트에서 super는 부모클래스 생성자의 참조한다는 의미.
   - 자바스크립트는 언어적 제약사항으로 생성자에서 super를 호출하기 전에 this를 사용할 수 없다. 그래서 반드시 super를 먼저 호출해야 this를 사용할 수 있음.
-  - 생성자 내에서는 외부API를 직접 호출할 수 없다. 필요하다면 componentDidMount()를 사용한다.<br><br>
+  - 생성자 내에서는 외부API를 직접 호출할 수 없다. 필요하다면 componentDidMount()를 사용한다.  
 
 - constructor와 render 함수 추가하기
 ```jsx
@@ -383,8 +501,7 @@ export default App
 // 콘솔창에 보면 Constructor가 먼저 나오고, render가 나옴.
 // 버튼 누를때마다 render가 계속 콘솔창에 찍히는거 확인가능!
 // Constructor는 처음 한번 나오면 다시는 안 나옴.
-```
-<br>
+```  
 
 - componentDidMount 함수 추가
 ```jsx
@@ -394,8 +511,7 @@ componentDidMount(){
  
 // 콘솔창에 보면 Constructor가 먼저 나오고, render가 나오고... 
 // 마지막으로 componentDidMount가 나오는거 확인 가능!
-```
-<br>
+```  
 
 - componentDidUpdate 함수 추가
 ```jsx
@@ -405,8 +521,7 @@ componentDidUpdate(){
 
 // 일단 Constructor - render - componentDidMount 순으로 나오고...
 // 버튼을 누를때마다 render - componentDidUpdate 순으로 계속 나오는거 확인 가능!
-```
-<br>
+```  
 
 ### [5주차 끝-MENU로 돌아가기](#menu)
 ***
@@ -432,8 +547,7 @@ componentDidUpdate(){
 ``` jsx
 // props로 전달할때의 예시
 <Food fav="kimchi" something={true} papapa={['hello',1,2,3,4,true]} />
-```
-<br>
+```  
 
 - 컴포넌트 여러개 사용하기
 ```jsx
@@ -451,8 +565,7 @@ function Movie() {    // 서브 컴포넌트
 }
 
 export default App    // 이게 있어야 다른곳에서도 사용 가능
-```
-<br>
+```  
 
 - props로 컴포넌트에 데이터 전달하기
 ```jsx
@@ -471,8 +584,7 @@ function Food(foo) {     // 위에서 전달된 값을 받아옴. 받는 변수�
 }
 
 export default App
-```
-<br>
+```  
 
 - props로 컴포넌트에 데이터 전달하기2
 ```jsx
@@ -490,8 +602,7 @@ function Food(foo) {       // 전달된 값을 foo로 받아왔음.
 }                                   // 이렇게 객체의 특정 값을 사용할때는 점(.)연산자를 사용!
 
 export default App
-```
-<br>
+```  
 
 - 구조 분해 할당으로 props 사용하기: 데이터의 개수가 많아지면 구조 분해 할당을 사용하는 것이 편리.
 ```jsx
@@ -510,8 +621,7 @@ function Food(foo) {
 }                      
 
 export default App
-```
-<br>
+```  
 
 - 여러 개의 컴포넌트에 props 사용하기(구조 분해 할당 사용)
 ```jsx
@@ -537,8 +647,7 @@ export default App
 // 2. Food fav="a"가 호출되서 값을 foo로 전달해서 리턴해서 렌더링 
 // 3. Food fav="b"가 호출되서 값을 foo로 전달해서 리턴해서 렌더링
 // 이렇게 하나씩 전달되는 것을 확인 가능!
-```
-<br>
+```  
 
 ### [4장. 컴포넌트 만들기]
 #### <1. map()함수로 컴포넌트 여러개 만들기>
@@ -561,8 +670,7 @@ friends.map(foo => {
 //         b        >> console.log(foo)가 출력한 값 2번째. 반환값X. 특정작업하는 함수 적용. 
 //         c        >> console.log(foo)가 출력한 값 3번째. 반환값X. 특정작업하는 함수 적용.
 //         [0,0,0]  >> freinds.map()이 최종으로 반환한 값 0. 배열에 리턴값 저장된채로 반환.
-```
-<br>
+```  
 
 - map()함수로 이름에 기호 추가한 배열 만들기
 ```jsx
@@ -572,8 +680,7 @@ friends.map (function(friends) {    // 무명함수를 통해서 배열의 원�
 })
 
 // 결과값은 a★ b★ c★ 세로로 한줄씩 나옴.  (friends 배열 값에다가 각각 ★이 추가됨!)
-```
-<br>
+```  
 
 - map()함수로 Food 컴포넌트 여러개 만들기+이미지도 출력하기
 ```jsx
@@ -611,8 +718,7 @@ function Food({name, picture}) {   // 위에서 전달한 값들을 받아왔음
 }
 
 export default App
-```
-<br>
+```  
 
 - key props 추가하기
   - 리스트의 각 원소는 유일한 key prop을 가져야 한다.
@@ -692,8 +798,7 @@ git --version   // git
 node -v     // node.js
 npm -v     // npm
 npx -v     // npx
-```
-<br>
+```  
 
 - 리액트 앱 폴더 만들기
 ```jsx
@@ -709,8 +814,7 @@ npx create-react-app 폴더 이름
 #### <4. 리액트 동작 과정 확인>
 1. index.js에서 App 컴포넌트를 콜하면, App.js에 작성한 내용이 return이 됨.
 2. index.js에 있는 document.getElementById('root')를 통해  index.html에서 id값이 root인 곳을 찾아서 App.js에서 return한 값을 넣어줌
-3. 그래서 웹 브라우저에서 App.js에 작성한 내용을 볼 수 있음!
-<br>
+3. 그래서 웹 브라우저에서 App.js에 작성한 내용을 볼 수 있음!  
 
 ### [3장. 리액트 기초개념 알아보기]
 #### <1. 컴포넌트>
