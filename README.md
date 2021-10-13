@@ -167,17 +167,17 @@ Movie.propTypes = {
 
 // <App.js>
 return ( 
-	<Movie 
-		genres = {movie.genres}
-	/>
+  <Movie
+    genres = {movie.genres}
+  />
 ```
 
 - 포스터 값 변경
 ```jsx
-return ( 
-	<Movie 
-		poster = {movie.medium_cover_image}
-	/>
+return (
+  <Movie
+    poster = {movie.medium_cover_image}
+  />
 )
 ```
 
