@@ -138,8 +138,8 @@ render() {
         : movies.map((movie)=> {
             console.log(movie);
             return (
-              <Movie 
-								key={movie.id}
+              <Movie
+                key={movie.id}
                 id={movie.id}
                 year={movie.year}
                 title={movie.title}
@@ -183,7 +183,7 @@ return (
 
 - class를 className으로 변경해서 오류 없애기 완료!
 
-### [6주차 끝-MENU로 돌아가기](#menu)
+### [7주차 끝-MENU로 돌아가기](#menu)
 
 ***
 ## [10월 06일] <a id="1006"></a>
