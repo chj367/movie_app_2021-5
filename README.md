@@ -4,7 +4,7 @@
 ### [Main branch로 변경]
 - 예전에는 Master branch라고 불렸음.
 - 최근에는 인종차별적 요소때문에 Main branch로 변경됨.
-- 해당 내용은 git 2.28버젼부터 적용.<br><br>
+- 해당 내용은 git 2.28버젼부터 적용.
 - git flow: branch 관련 흐름
 
 ```jsx
@@ -19,7 +19,7 @@ git branch -m master main  // 이거 입력하면 기존꺼를 main 브랜치로
 4. 예전에 모듈 설치했던거 설치하면 수업 준비 완료! (package.json에 모듈 설치 뭐했는지 확인가능)
 ***
 ## [MENU] <a id="menu"></a>
-- [1013-7주차](#1013) : 영화 앱 만들기 2
+- [1013-7주차](#1013) : 영화 앱 만들기 + 영화 앱 다듬기
 - [1006-6주차](#1006) : 영화 앱 만들기 
 - [0929-5주차](#0929) : prop-types + State와 클래스형 컴포넌트
 - 0922-4주차 : 휴강(추석연휴)이라서 내용 X
@@ -28,7 +28,8 @@ git branch -m master main  // 이거 입력하면 기존꺼를 main 브랜치로
 ***
 ## [10월 13일] <a id="1013"></a>
 ### 오늘 배운 내용 요약
-> 1. 영화 앱 만들기 2
+> 1. 영화 앱 만들기
+> 2. 영화 앱 다듬기
 
 ### [6장. 영화 앱 만들기]
 - movie state에 영화 데이터 저장하기
@@ -36,8 +37,8 @@ git branch -m master main  // 이거 입력하면 기존꺼를 main 브랜치로
 getMovies = async () => {
   const {
     data: {
-       data: {movies}
-     }
+      data: {movies}
+    }
   } = await axios.get("https://yts-proxy.now.sh/list_movies.json")
   this.setState({movies: movies})
 }
@@ -46,8 +47,7 @@ getMovies = async () => {
 // 앞의 movies는 영화 데이터를 저장할 movies 배열을 가리킴
 // 뒤의 movies는 data.data.movies를 가리킴
 
-// 이렇게 키와 키 값의 이름이 같으면 밑에처럼 생략 가능!
-// this.setState({movies})
+// 이렇게 키와 키 값의 이름이 같으면 this.setState({movies}) 이렇게 생략 가능!
 ```  
 
 - isLoading state를 true에서 false로 업데이트 하기
@@ -55,8 +55,8 @@ getMovies = async () => {
 getMovies = async () => {
  const {
     data: {
-       data: {movies}
-     }
+      data: {movies}
+    }
   } = await axios.get("https://yts-proxy.now.sh/list_movies.json")
   this.setState({movies, isLoading: false})
 }
@@ -69,13 +69,13 @@ getMovies = async () => {
 import PropTypes from 'prop-types'
 
 function Movie(){
-    return(
-     <h1>Hello</h1>   
-    )
+  return(
+    <h1>Hello</h1>   
+  )
 }
 
 Movie.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,  // id는 number 타입이고, 반드시 들어와야함(isRequired)
   year: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
@@ -89,12 +89,12 @@ export default Movie
 ```jsx
 getMovies = async () => {
   const {
-      data: {
-         data: {movies}
-      }
-   } = await axios.get("https://yts-proxy.now.sh/list_movies.json?sort_by=rating")
-   console.log(movies);
-   this.setState({movies, isLoading: false})
+    data: {
+      data: {movies}
+    }
+  } = await axios.get("https://yts-proxy.now.sh/list_movies.json?sort_by=rating")
+  console.log(movies);
+  this.setState({movies, isLoading: false})
 }
 
 // 이렇게하면 rating 높->낮은거 순으로 정렬되있는거 확인가능!
@@ -103,9 +103,9 @@ getMovies = async () => {
 - Movie 컴포넌트에 props 추가하기
 ```jsx
 function Movie({id, title, year, summary, poster}){
-    return(
-     <h1>{title}</h1>  
-    )
+  return(
+    <h1>{title}</h1>  
+  )
 }
 ```  
 
@@ -154,8 +154,36 @@ render() {
 // 이제 화면에 Movie.js에서 가져온 값들 확인 가능
 ```
 
-- ddd
+### [7장. 영화 앱 다듬기]
+- 장르 추가하기
+```jsx
+// <Movie.js>
+function Movie({title, year, summary, poster, genres}) { ... }
 
+Movie.propTypes = {
+	genres: PropTypes.arrayOf(PropTypes.string).isRequired
+}    // 여러 내용 들어가서 타입을 배열로 설정!
+
+
+// <App.js>
+return ( 
+	<Movie 
+		genres = {movie.genres}
+	/>
+```
+
+- 포스터 값 변경
+```jsx
+return ( 
+	<Movie 
+		poster = {movie.medium_cover_image}
+	/>
+)
+```
+
+- class를 className으로 변경해서 오류 없애기 완료!
+
+### [6주차 끝-MENU로 돌아가기](#menu)
 
 ***
 ## [10월 06일] <a id="1006"></a>
