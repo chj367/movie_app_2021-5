@@ -32,6 +32,7 @@ class App extends React.Component {
                         console.log(movie);
                         return (
                             <Movie 
+                                key={movie.id}
                                 id={movie.id}
                                 year={movie.year}
                                 title={movie.title}
