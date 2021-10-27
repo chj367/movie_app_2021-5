@@ -1,8 +1,10 @@
+import './About.css'
+
 function About() {
     return (
-        <span>
-            <h1>Hello About!</h1>
-        </span>
+        <div className="about__container">
+            <span><h1>Hello About!</h1></span>
+        </div>
     )
 }
 
