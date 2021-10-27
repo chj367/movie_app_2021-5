@@ -99,6 +99,38 @@ function App() {
 export default App
 ```
 
+- 라우터 사용하기
+```jsx
+function App() {
+  return(
+    <HashRouter>
+      <Route path='/' component={Home}>
+        <h1>Home</h1>
+      </Route>    
+      <Route path='/home/introduction'>
+        <h1>Introduction</h1>
+      </Route>  
+      <Route path='/about' component={About}>
+        <h1>About</h1>
+      </Route>
+    </HashRouter>
+  )
+}
+
+// 리액트앱 URL에 /about을 입력하면 Home이랑 About이 나옴
+
+// 리액트앱 URL에 /home/introduction을 입력하면 Home이랑 Introduction이 나옴
+
+// '/'만 보이면 home이라고 인식해서 Home도 같이 나온것임...
+// 그래서...
+
+<Route path='/' exact={true} component={Home}>  
+   <h1>Home</h1>
+</Route>
+
+// 이렇게 exact={true} 추가하면 이제 about 따로, home 따로 잘 나옴!
+```
+
 
 ### [9주차 끝-MENU로 돌아가기](#menu)
 
