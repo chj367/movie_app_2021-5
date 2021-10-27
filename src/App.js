@@ -6,7 +6,7 @@ import Home from './routes/Home'
 function App() {
     return(
         <HashRouter>
-            <Route path='/' component={Home}>
+            <Route path='/' exact={true} component={Home}>
                 <h1>Home</h1>
             </Route>    
             <Route path='/home/introduction'>
