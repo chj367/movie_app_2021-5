@@ -19,7 +19,7 @@ git branch -m master main  // 이거 입력하면 기존꺼를 main 브랜치로
 4. 예전에 모듈 설치했던거 설치하면 수업 준비 완료! (package.json에 모듈 설치 뭐했는지 확인가능)
 ***
 ## [MENU] <a id="menu"></a>
-- [1027-9주차](#1027) : 영화 앱 다듬기 + 
+- [1027-9주차](#1027) : 영화 앱 다듬기 + 영화 앱에 여러기능 추가하기
 - [1020-8주차](#1020) : 중간고사라서 내용 X 
 - [1013-7주차](#1013) : 영화 앱 만들기 + 영화 앱 다듬기
 - [1006-6주차](#1006) : 영화 앱 만들기 
@@ -74,6 +74,30 @@ git branch -m master main  // 이거 입력하면 기존꺼를 main 브랜치로
 
 ### [8장. 영화 앱에 여러 기능 추가하기]
 - 라우터: 메뉴를 클릭하면 화면이 이동하는데 필요한 기능.
+
+- react-router-dom 패키지 설치
+```jsx
+npm install react-router-dom
+```
+
+- 라우터 만들기
+```jsx
+import "./App.css"
+import { HashRouter, Route } from 'react-router-dom'
+import About from './routes/About'
+import Home from './routes/Home'
+
+function App() {
+  return(
+    <HashRouter>
+      <Route path='/' component={Home} />
+      <Route path='/about' component={About} />
+    </HashRouter>
+  )
+}
+
+export default App
+```
 
 
 ### [9주차 끝-MENU로 돌아가기](#menu)
