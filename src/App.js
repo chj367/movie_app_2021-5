@@ -1,4 +1,4 @@
-import Movie from "./routes/Home"
+import Home from "./routes/Home"
 import "./App.css"
 
 function App() {
