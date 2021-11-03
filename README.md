@@ -19,14 +19,188 @@ git branch -m master main  // 이거 입력하면 기존꺼를 main 브랜치로
 4. 예전에 모듈 설치했던거 설치하면 수업 준비 완료! (package.json에 모듈 설치 뭐했는지 확인가능)
 ***
 ## [MENU] <a id="menu"></a>
+- [1103-10주차](#1103) : 영화 앱에 여러기능 추가하기
 - [1027-9주차](#1027) : 영화 앱 다듬기 + 영화 앱에 여러기능 추가하기
-- [1020-8주차](#1020) : 중간고사라서 내용 X 
+- 1020-8주차 : 중간고사라서 내용 X 
 - [1013-7주차](#1013) : 영화 앱 만들기 + 영화 앱 다듬기
 - [1006-6주차](#1006) : 영화 앱 만들기 
 - [0929-5주차](#0929) : prop-types + State와 클래스형 컴포넌트
 - 0922-4주차 : 휴강(추석연휴)이라서 내용 X
 - [0915-3주차](#0915) : 리액트 기초개념 + 컴포넌트 만들기
 - [0908-2주차](#0908) : 리액트로 클론 코딩 시작하기
+***
+## [11월 03일] <a id="1103"></a>
+### 오늘 배운 내용 요약
+> 1. 영화 앱에 여러기능 추가하기
+### [8장. 영화 앱에 여러기능 추가하기]
+- 네비게이션 만들기
+```jsx
+function Navigation(){
+  return(
+    <div>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+    </div>
+  )
+}
+
+export default Navigation
+
+// Home과 About 버튼을 만들어서, 각각 버튼을 누르면 해당 화면이 보이도록 할 예정
+```
+
+- 만든 네비게이션 사용하기
+```jsx
+import Navigation from "./components/Navigation"
+
+functrion App() {
+  return (
+    <HashRouter>
+      <Navigation />
+      <Route path='/' exact={true} component={Home} />
+      <Route path='/about' component={About} />
+    </HashRouter>
+  )
+}
+```
+
+- a href를 link to로 변경하기
+```jsx
+import { Link } from 'react-router-dom'
+
+function Navigation(){
+  return(
+    <div>
+      <Link to="/">Home</Link>
+      <Link to="/about">About</Link>
+    </div>
+  )
+}
+
+export default Navigation
+
+// a 태그의 href속성은 페에지 전체를 다시 그리는 성질을 갖고있어서 변경했음!
+```
+
+- 영화 상세정보 기능 만들기
+- About.js에 props를 받기
+```jsx
+function About(props) {
+  console.log(props);
+  return (
+    <div className="about__container">
+      <span><h1>Hello About!</h1></span>
+    </div>
+  )
+}
+
+// route props를 이용해 영화카드를 누르면 상세정보를 보여주는 기능을 만들 예정
+```
+
+- Movie.js에 link 추가하기
+```jsx
+import { Link } from 'react-router-dom'
+
+function Movie({title, year, summary, poster, genres}){
+  return(
+    <div className="movie">
+      <Link
+        to={{
+          pathname: 'movie-detail',
+          state: { year, title, summary, poster, genres }
+        }}
+      > 
+      ...
+      </Link>  
+    </div>   
+  )
+}    
+
+// pathname에다가 경로를 써주고, state에다가 route props에 보내줄 데이터를 써주면 됨
+```
+
+- Detail.js 추가하기
+```jsx
+function Detail(props){
+  console.log(props)
+    return(
+      <span>hello</span>
+    )
+}
+
+export default Detail
+```
+
+- Detail.js 사용하게 만들기
+```jsx
+import Detail from "./routes/Detail"
+
+function App() {
+  return(
+    <HashRouter>
+      <Navigation />
+      <Route path='/' exact={true} component={Home} />
+      <Route path='/about' component={About} />
+      <Route path='/detail' component={Detail} />
+    </HashRouter>
+  )
+}
+```
+
+- 리다이렉트 기능 만들기
+  - route props의 history 키를 활용하면 됨
+  - history키에는 push, go, goBack, goForward와 같은 키가 있음
+  - 그 키에는 URL을 변경해주는 함수들이 있다.   
+
+```jsx
+import React from "react"
+
+class Detail extends React.Component {
+  componentDidMount(){
+    const { location, history } = this.props
+    if( location.state === undefined ) {
+      history.push('/')
+    }
+  }
+  render() {
+    return (
+      <span>hello</span>
+    )
+  }
+}
+```
+
+- 제목 나오게 하기
+```jsx
+render() {
+  const { location } = this.props
+    return (
+      <span>{location.state.title}</span>
+    )
+}
+```
+
+- 렌더링 고치기
+```jsx
+render() {
+  const { location } = this.props
+  if(location.state) {
+    return (
+      <span>{location.state.title}</span>
+    )
+  } else {
+    return null
+  }
+}
+
+// componentDidMount()는 렌더링 직후에 실행됨
+// 근데 주소창에 주소를 입력하면 렌더링이 안됨
+// 그래서 render()가 실행되지 않아서 componentDidMount()도 실행X
+// 그래서 이렇게 if~else문을 넣어서 render()가 수행될수있게 도와줬음.
+```
+
+### [10주차 끝-MENU로 돌아가기](#menu)
+
 ***
 
 ## [10월 27일] <a id="1027"></a>
